@@ -28,8 +28,8 @@ Fonts need internet. Without it, Arial is used.
 The menu has Home, Products, Machines, Quality, Customers and Contact.
 
 - **Home** shows by default: hero, numbers strip, About the company (video and text), Vision.
-- **Products**: Bonnet lock, Valve body and Pulley tensioner (child part and assembled part photos for each), plus a row of four turned-part photos.
-- **Machines**: photos of the machine shop and the list of machines table.
+- **Products**: has a dropdown (hover on laptop, tap on phone) with two categories. Tractor / Farm Equipment: Bonnet Lock, Drive Roller, Pipe and Pin, Banjos and Fittings. Automotive: Pulley Tensioner, Drain Plug. Choosing a category shows only its products; the buttons at the top of the page (All, Tractor / Farm Equipment, Automotive) do the same. Each product has its own photo and name.
+- **Machines**: has a dropdown listing all nine machines. Choosing one jumps to that machine's section, which shows its name, a one-line description, its capacity and quantity, and 2 to 3 photos. The shop floor photos are at the bottom.
 - **Quality**: a photo grid of the inspection instruments, with the name on each photo.
 - **Customers**: customer logos first, then the table of parts supplied.
 - The Contact section (details, enquiry form, both maps) and the Request a Quote button are visible on every tab.
@@ -49,11 +49,14 @@ The menu has Home, Products, Machines, Quality, Customers and Contact.
 | hero-2.jpg | Hero background, second photo (Factory 2). The slideshow alternates between the two |
 | about.mp4 | About section video (MP4, H.264). See the note below about file size |
 | about.jpg | About section picture |
-| bonnet-child.jpg, bonnet-assembly.jpg | Products, Bonnet lock |
-| valve-child.jpg, valve-assembly.jpg | Products, Valve body |
-| pulley-child.jpg, pulley-assembly.jpg | Products, Pulley tensioner |
-| product-1.jpg to product-4.jpg | Products, row of four photos |
-| machine-shop-1.jpg to machine-shop-3.jpg | Machines tab (1 is the big photo) |
+| bonnet-assembly.jpg | Products, Bonnet Lock |
+| product-drive-roller.jpg | Products, Drive Roller |
+| product-pipe-and-pin.jpg | Products, Pipe and Pin |
+| product-banjos-and-fittings.jpg | Products, Banjos and Fittings |
+| pulley-assembly.jpg | Products, Pulley Tensioner |
+| product-drain-plug.jpg | Products, Drain Plug |
+| machine-shop-1.jpg to machine-shop-3.jpg | Machines tab, Shop floor (1 is the big photo) |
+| machine-<name>-1.jpg, -2.jpg, -3.jpg | Machines tab, photos for each machine (see the next list). Photo 3 is optional |
 | logo-sastha.png | Navigation logo and browser tab icon |
 | logo-sundram.png | Sundram Fasteners logo |
 | logo-sdf.png | Same Deutz Fahr logo |
@@ -63,6 +66,24 @@ The menu has Home, Products, Machines, Quality, Customers and Contact.
 | logo-motion.png | Motion Industries logo |
 | logo-apa.png | APA Engineering logo |
 | logo-simpson.png | Simpson logo (placeholder until the file is added) |
+
+### Machine photos (2 to 3 per machine)
+
+Use `machine-` + the name below + `-1.jpg`, `-2.jpg` and optionally `-3.jpg`. For example `machine-cnc-lathe-1.jpg`.
+
+| Name part | Machine |
+|---|---|
+| cnc-lathe | CNC lathe (Ace Jobber and Cub) and sliding head stock |
+| vertical-machining-centre | Vertical machining centre (AMS MCV 400) |
+| centreless-grinding | Centreless grinding (Bhagwan and Sons) |
+| capstan-lathe | Capstan lathe |
+| auto-lathe | Auto lathe (PMT) Traub |
+| thread-rolling | Thread rolling (BSA) |
+| milling-machine | Milling machine (Pioneer) |
+| drilling-and-tapping | Drilling and tapping |
+| band-saw-cutting | Band saw cutting machine |
+
+Photos 1 and 2 show a placeholder with the file name until you add them. Photo 3 only appears once you add it.
 
 ### Quality tab photos (13 instruments)
 
@@ -94,7 +115,8 @@ Tips: JPG for photos, PNG with transparent background for logos, about 1200 x 90
 |---|---|---|
 | Text, phone, email, addresses | index.html | the text itself |
 | Numbers strip (employees, turnover) | index.html | `data-to` |
-| Machines table rows | index.html | `List of machines` |
+| A machine's description, capacity or quantity | index.html | the machine name (inside `class="mach"`) |
+| Product names or categories | index.html | `class="pcat"` |
 | Customers table rows | index.html | `Who we supply` |
 | Add or rename a Quality instrument | index.html | `q-gal` (one `figure` per instrument) |
 | Add a customer logo | index.html | `class="logos"` (one `figure` per logo) |
