@@ -652,3 +652,112 @@ body.lb-open{overflow:hidden}
   #quality .q-intro p{font-size:.85rem;line-height:1.5}
   .qn{display:none}
 }
+/* ===== phone hamburger menu ===== */
+.burger{display:none}
+@media (max-width:860px){
+  .burger{display:flex;order:3;flex:none;flex-direction:column;justify-content:center;gap:5px;width:42px;height:38px;padding:0 9px;background:var(--dark);border:0;cursor:pointer}
+  .burger span{display:block;height:2px;background:#eef1f2;transition:transform .25s ease,opacity .25s ease}
+  nav.open .burger span:nth-child(1){transform:translateY(7px) rotate(45deg)}
+  nav.open .burger span:nth-child(2){opacity:0}
+  nav.open .burger span:nth-child(3){transform:translateY(-7px) rotate(-45deg)}
+  nav .wrap>.btn{order:2}
+  nav ul{display:none;order:4;flex-basis:100%;flex-direction:column;flex-wrap:nowrap;justify-content:flex-start;overflow:visible;gap:0;margin-top:6px;border-top:2px solid var(--dark);max-height:calc(100vh - 110px);overflow-y:auto}
+  nav.open ul{display:flex}
+  nav.open.nav-hidden{transform:none}
+  nav ul li{border-bottom:1px solid var(--line)}
+  nav ul a{display:block;font-size:1rem;letter-spacing:.08em;padding:13px 6px;white-space:normal;border-bottom:0}
+  nav ul a.current{background:var(--panel2);color:var(--acc);border-bottom:0}
+}
+
+/* ===== sliders ===== */
+.slider{position:relative}
+.sl-track{display:flex;gap:16px;overflow-x:auto;scroll-snap-type:x mandatory;scrollbar-width:none;scroll-behavior:smooth;-webkit-overflow-scrolling:touch;padding:8px 0}
+.sl-track::-webkit-scrollbar{display:none}
+.sl-slide{flex:0 0 calc((100% - 48px)/4);scroll-snap-align:start;position:relative;aspect-ratio:4/3;background:var(--dark2);border:2px solid var(--dark);overflow:hidden;cursor:zoom-in;margin:0;transition:transform .35s ease,border-color .35s ease}
+.sl-slide img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .5s ease}
+.sl-slide.sl-empty{cursor:default;background:var(--panel2);border:2px dashed var(--line);display:flex;align-items:center;justify-content:center;text-align:center}
+.sl-slide.sl-empty::after{content:attr(data-file);font-family:var(--head);font-size:.9rem;letter-spacing:.06em;text-transform:uppercase;color:var(--mut);padding:8px;word-break:break-all}
+@media (hover:hover){
+  .sl-slide:not(.sl-empty):hover{transform:translateY(-6px);border-color:var(--acc)}
+  .sl-slide:not(.sl-empty):hover img{transform:scale(1.08)}
+}
+.sl-slide:not(.sl-empty):active{border-color:var(--acc)}
+.sl-btn{position:absolute;top:50%;transform:translateY(-50%);z-index:3;width:42px;height:56px;background:var(--dark);color:#eef1f2;border:0;font-size:1.9rem;line-height:1;cursor:pointer}
+.sl-prev{left:-14px}.sl-next{right:-14px}
+.sl-btn.sl-off{display:none}
+@media (min-width:861px) and (max-width:1100px){.sl-slide{flex-basis:calc((100% - 32px)/3)}}
+@media (max-width:860px){
+  .sl-track{gap:10px}
+  .sl-slide{flex-basis:calc((100% - 10px)/2)}
+  .sl-prev{left:-4px}.sl-next{right:-4px}
+  .sl-btn{width:34px;height:46px;font-size:1.5rem}
+}
+
+/* ===== machines selector ===== */
+.mtabs{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:28px}
+.mt{font-family:var(--head);font-weight:600;font-size:1.05rem;letter-spacing:.08em;text-transform:uppercase;padding:9px 16px;background:transparent;color:var(--ink);border:2px solid var(--dark);cursor:pointer;transition:background-color .25s ease,color .25s ease}
+.mt.on{background:#1f5a3d;border-color:#1f5a3d;color:#f4f1ec}
+@media (hover:hover){.mt:not(.on):hover{background:var(--panel2)}}
+.mpanel{display:none}
+.mpanel.on{display:block}
+.mpanel h3,.eq h3,.qfloor h3{font-size:1.8rem;margin-bottom:6px}
+.sl-desc{color:var(--mut);margin-bottom:14px;max-width:780px}
+@media (max-width:860px){
+  .mt{font-size:.85rem;padding:7px 10px;letter-spacing:.05em}
+  .mtabs{gap:6px;margin-bottom:20px}
+  .mpanel h3,.eq h3,.qfloor h3{font-size:1.35rem;margin-bottom:10px}
+  .sl-desc{display:none}
+}
+
+/* ===== quality ===== */
+.qfloor{margin-bottom:8px}
+.qf-photo{aspect-ratio:21/9;min-height:0;width:100%;background:var(--dark2);border:2px solid var(--dark)}
+.qf-photo img{cursor:zoom-in;transition:transform .5s ease}
+@media (hover:hover){.qf-photo:hover img{transform:scale(1.04)}}
+.eq{margin-top:40px;padding-top:18px;border-top:2px solid var(--dark)}
+@media (max-width:860px){
+  .qf-photo{aspect-ratio:16/9}
+  .eq{margin-top:26px;padding-top:14px}
+}
+
+/* ===== image viewer ===== */
+.sv{position:fixed;inset:0;z-index:100;background:rgba(14,20,24,.94);display:none;align-items:center;justify-content:center}
+.sv.open{display:flex}
+.sv img{max-width:92vw;max-height:84vh;object-fit:contain;display:block}
+.sv button{position:absolute;background:var(--dark);color:#eef1f2;border:2px solid #43525d;cursor:pointer;font-size:2rem;line-height:1;width:48px;height:56px}
+.sv .sv-x{top:14px;right:14px;height:48px}
+.sv .sv-prev{left:12px;top:50%;transform:translateY(-50%)}
+.sv .sv-next{right:12px;top:50%;transform:translateY(-50%)}
+.sv .sv-count{position:absolute;bottom:16px;left:50%;transform:translateX(-50%);color:#eef1f2;font-family:var(--head);letter-spacing:.12em}
+.sv.single .sv-prev,.sv.single .sv-next{display:none}
+body.sv-open{overflow:hidden}
+
+/* phone: keep the full logo name visible beside the menu button */
+@media (max-width:860px){
+  nav .wrap{gap:6px 8px}
+  nav .logo{font-size:1rem;letter-spacing:.02em}
+  nav .mark{height:26px;margin-right:6px}
+  nav .wrap>.btn{font-size:.7rem;letter-spacing:.03em;padding:7px 8px}
+  .burger{width:38px;height:34px;padding:0 8px}
+  nav.open .burger span:nth-child(1){transform:translateY(7px) rotate(45deg)}
+  nav.open .burger span:nth-child(3){transform:translateY(-7px) rotate(-45deg)}
+}
+
+/* phone: logo name fits and keeps the space between the two words */
+nav .logo span{margin-left:.3em}
+@media (max-width:860px){
+  nav .logo{font-size:.92rem;letter-spacing:.01em;overflow:hidden}
+  nav .wrap>.btn{font-size:.66rem;letter-spacing:.02em;padding:7px 7px}
+}
+
+/* phone: final logo size so the full name shows */
+@media (max-width:860px){
+  nav .logo{font-size:.8rem;letter-spacing:0;overflow:visible}
+  nav .mark{height:24px;margin-right:5px}
+}
+
+/* very small phones */
+@media (max-width:400px){
+  nav .mark{display:none}
+  nav .wrap>.btn{font-size:.62rem;padding:7px 6px}
+}

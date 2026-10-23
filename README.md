@@ -161,3 +161,41 @@ If GitHub says "unable to commit" while editing a file in the browser, the file 
 - [ ] Contact form tested and FormSubmit activated
 - [ ] Phone numbers and email checked (tap both numbers on a phone)
 - [ ] Tested on a phone and on a laptop
+
+## Machines and Quality sliders
+
+Each machine type (Machines tab) and each piece of equipment (Quality tab) shows a heading, a one line description and a slider of up to 4 photos. Add as many of the 4 as you have. Photos that are missing are skipped. If none exist, a placeholder shows the first file name. Click a photo to open it full screen with next and previous buttons.
+
+Quality floor photo (long landscape, about 2100 x 900 px): `images/quality-floor.jpg`
+
+**Machines**
+
+| Machine | Photos (in `images`) |
+|---|---|
+| CNC lathe and sliding head stock | machine-shop-1.jpg, machine-shop-2.jpg, machine-shop-3.jpg, machine-cnc-4.jpg |
+| Vertical machining centre | machine-vmc-1.jpg, machine-vmc-2.jpg, machine-vmc-3.jpg, machine-vmc-4.jpg |
+| Centreless grinding | machine-grinding-1.jpg, machine-grinding-2.jpg, machine-grinding-3.jpg, machine-grinding-4.jpg |
+| Capstan lathe | machine-capstan-1.jpg, machine-capstan-2.jpg, machine-capstan-3.jpg, machine-capstan-4.jpg |
+| Auto lathe | machine-auto-lathe-1.jpg, machine-auto-lathe-2.jpg, machine-auto-lathe-3.jpg, machine-auto-lathe-4.jpg |
+| Thread rolling | machine-thread-rolling-1.jpg, machine-thread-rolling-2.jpg, machine-thread-rolling-3.jpg, machine-thread-rolling-4.jpg |
+| Milling machine | machine-milling-1.jpg, machine-milling-2.jpg, machine-milling-3.jpg, machine-milling-4.jpg |
+| Drilling and tapping | machine-drilling-1.jpg, machine-drilling-2.jpg, machine-drilling-3.jpg, machine-drilling-4.jpg |
+| Band saw cutting machine | machine-band-saw-1.jpg, machine-band-saw-2.jpg, machine-band-saw-3.jpg, machine-band-saw-4.jpg |
+
+**Quality equipment**
+
+| Equipment | Photos (in `images`) |
+|---|---|
+| Profile projector | q-profile-projector-1.jpg, q-profile-projector-2.jpg, q-profile-projector-3.jpg, q-profile-projector-4.jpg |
+| Video measurement system | inspection-2.jpg, q-video-measurement-2.jpg, q-video-measurement-3.jpg, q-video-measurement-4.jpg |
+| Trimos 2D height gauge | inspection-3.jpg, q-trimos-height-gauge-2.jpg, q-trimos-height-gauge-3.jpg, q-trimos-height-gauge-4.jpg |
+| Roughness tester | q-roughness-tester-1.jpg, q-roughness-tester-2.jpg, q-roughness-tester-3.jpg, q-roughness-tester-4.jpg |
+| Height gauge | q-height-gauge-1.jpg, q-height-gauge-2.jpg, q-height-gauge-3.jpg, q-height-gauge-4.jpg |
+| Air gauge | q-air-gauge-1.jpg, q-air-gauge-2.jpg, q-air-gauge-3.jpg, q-air-gauge-4.jpg |
+| Slip gauges | q-slip-gauges-1.jpg, q-slip-gauges-2.jpg, q-slip-gauges-3.jpg, q-slip-gauges-4.jpg |
+| Bore dial gauges | q-bore-dial-gauges-1.jpg, q-bore-dial-gauges-2.jpg, q-bore-dial-gauges-3.jpg, q-bore-dial-gauges-4.jpg |
+| Pitch micrometer | q-pitch-micrometer-1.jpg, q-pitch-micrometer-2.jpg, q-pitch-micrometer-3.jpg, q-pitch-micrometer-4.jpg |
+| Digital micrometer | q-digital-micrometer-1.jpg, q-digital-micrometer-2.jpg, q-digital-micrometer-3.jpg, q-digital-micrometer-4.jpg |
+| Digital vernier | q-digital-vernier-1.jpg, q-digital-vernier-2.jpg, q-digital-vernier-3.jpg, q-digital-vernier-4.jpg |
+| Refractometer | q-refractometer-1.jpg, q-refractometer-2.jpg, q-refractometer-3.jpg, q-refractometer-4.jpg |
+| Coordinate measuring machine (CMM) | inspection-1.jpg, q-cmm-2.jpg, q-cmm-3.jpg, q-cmm-4.jpg |
