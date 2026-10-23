@@ -391,3 +391,19 @@ if(panels.machines)panels.machines.querySelectorAll('[data-mach]').forEach(funct
   });
 });
 })();
+
+
+/* Quality: Machines / Equipment switch */
+(function(){
+var tabs=document.querySelectorAll('.qtab'),cats=document.querySelectorAll('.qcat');
+if(!tabs.length)return;
+function show(name){
+  cats.forEach(function(c){c.classList.toggle('hide',c.getAttribute('data-q')!==name)});
+  tabs.forEach(function(t){
+    var on=t.getAttribute('data-q')===name;
+    t.classList.toggle('on',on);
+    t.setAttribute('aria-selected',on?'true':'false');
+  });
+}
+tabs.forEach(function(t){t.addEventListener('click',function(){show(t.getAttribute('data-q'))})});
+})();
