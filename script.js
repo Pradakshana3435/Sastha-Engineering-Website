@@ -113,12 +113,20 @@
   /* ----- tabs ----- */
   var tabs = $$('[data-tab]'), navLinks = $$('nav [data-go]');
   document.body.classList.add('tabs');
+  var S = { page: 'home', about: false, cat: 'all', machine: 0, q: 'machines' };
+  function commit(replace) {
+    var snap = Object.assign({}, S);
+    if (!replace && JSON.stringify(history.state) !== JSON.stringify(snap)) history.pushState(snap, '');
+    else history.replaceState(snap, '');
+  }
   function go(name, o) {
     o = o || {};
+    S.page = name; S.about = !!o.about;
     document.body.classList.toggle('about-only', !!o.about);
     document.body.dataset.page = name;
     tabs.forEach(function (t) { t.classList.toggle('on', t.dataset.tab === name); });
     navLinks.forEach(function (l) { l.classList.toggle('current', l.dataset.go === name); });
+    if (!o.nopush) commit();
     if (o.scroll !== false) window.scrollTo({ top: 0, behavior: 'smooth' });
   }
   function jump(tab, sel) {
@@ -133,10 +141,10 @@
     var a = e.target.closest('[data-go]');
     if (!a) return;
     e.preventDefault();
-    if (a.dataset.go === 'products') showCat('all');
+
     go(a.dataset.go);
   });
-  go('home', { scroll: false });
+  go('home', { scroll: false, nonpush: true });
 
   /* ================= IMAGE / VIDEO VIEWER ================= */
   var gv = el('div', 'gv');
@@ -218,6 +226,7 @@
     });
   })();
   function showCat(name) {
+    S.cat = name;
     catBoxes.forEach(function (c) { c.classList.toggle('hide', name !== 'all' && c.dataset.cat !== name); });
     catChips.forEach(function (b) { b.classList.toggle('on', b.dataset.cat === name); });
   }
@@ -303,7 +312,7 @@
     };
   }), 'machine', true);
   $('#machine-view').appendChild(machineBox);
-
+  function selectMachine(i) { S.machine = i; machineBox.select(i); }
    /* [name, image (extra photos are <name>-2.jpg and <name>-3.jpg)] */
     /* quality page: all items of the chosen group, name + photos */
   var qualityGroup = 'machines';
@@ -318,17 +327,17 @@
     $('#q-' + g + ' .qmount').appendChild(list);
   });
   function showQuality(g) {
-    qualityGroup = g;
+    qualityGroup = g; S.q = g;
     ['machines', 'equipment'].forEach(function (k) { $('#q-' + k).classList.toggle('hide', k !== g); });
   }
   showQuality('machines');
   /* ================= MENUS (desktop dropdowns + phone sidebar) ================= */
   var MENU = {
-    products: PRODUCTS.map(function (c) {
+    products: [{ label: 'All products', run: function () { showCat('all'); go('products'); } }].concat(PRODUCTS.map(function (c) {
       return { label: c.title, run: function () { showCat(c.id); go('products'); } };
-    }),
+    })),
     machines: MACHINES.map(function (m, i) {
-      return { label: m[1], run: function () { machineBox.select(i); jump('machines', '#machine-view'); } };
+      return { label: m[1], run: function () { selectMachine(i); jump('machines', '#machine-view'); } };
     }),
     quality: [['Machines', 'machines'], ['Equipment', 'equipment']].map(function (q) {
       return { label: q[0], run: function () { showQuality(q[1]); go('quality'); } };
@@ -588,4 +597,12 @@
         .catch(function () { m.textContent = 'Could not send. Please email us at sasthaenggservices@yahoo.co.in or call +91 9840779640.'; });
     });
   })();
+  /* restore state on Back / Forward / reload */
+  function apply(s) {
+    s = s || { page: 'home', about: false, cat: 'all', machine: 0, q: 'machines' };
+    showCat(s.cat); showQuality(s.q); selectMachine(s.machine);
+    go(s.page, { about: s.about, scroll: false, nopush: true });
+  }
+  window.addEventListener('popstate', function (e) { apply(e.state); });
+  apply(history.state); commit(true);
 })();
