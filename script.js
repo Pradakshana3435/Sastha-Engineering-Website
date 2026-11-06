@@ -224,8 +224,8 @@
   showCat('all');
 
   /* ================= GALLERY (machines + quality) ================= */
-  function slider(srcs, name, required) {
-    var w = el('div', 'gs'), tr = el('div', 'gs-track'), p = el('button', 'gs-a gs-p', '\u2039'), n = el('button', 'gs-a gs-n', '\u203A');
+    function slider(srcs, name, required, cls) {
+    var w = el('div', 'gs' + (cls ? ' ' + cls : '')), tr = el('div', 'gs-track'), p = el('button', 'gs-a gs-p', '\u2039'), n = el('button', 'gs-a gs-n', '\u203A');
     p.type = n.type = 'button'; tr.setAttribute('data-zoom', '');
     p.setAttribute('aria-label', 'Previous images'); n.setAttribute('aria-label', 'Next images');
     function upd() {
@@ -304,32 +304,24 @@
   }), 'machine', true);
   $('#machine-view').appendChild(machineBox);
 
-  /* capability page: machine list as a table */
-  MACHINES.forEach(function (m) {
-    var tr = el('tr'); tr.appendChild(el('td', null, m[2])); tr.appendChild(el('td', null, m[5]));
-    $('#machine-table').appendChild(tr);
-  });
-
-   /* quality page: every item of the chosen group is listed (name + photos, no description) */
-  var qualityGroup = 'machines';   /* remembered, so returning to Quality shows the last choice */
+   /* [name, image (extra photos are <name>-2.jpg and <name>-3.jpg)] */
+    /* quality page: all items of the chosen group, name + photos */
+  var qualityGroup = 'machines';
   ['machines', 'equipment'].forEach(function (g) {
     var list = el('div', 'qlist');
     QUALITY[g].forEach(function (q) {
       var item = el('div', 'qitem');
       item.appendChild(el('h3', 'gx-name', q[0]));
-      item.appendChild(slider([q[1] + '.jpg', q[1] + '-2.jpg', q[1] + '-3.jpg'].map(function (f) { return 'images/' + f; }), q[0], 1));
+      item.appendChild(slider([q[1] + '.jpg', q[1] + '-2.jpg', q[1] + '-3.jpg'].map(function (f) { return 'images/' + f; }), q[0], 1, 'gs-q'));
       list.appendChild(item);
     });
     $('#q-' + g + ' .qmount').appendChild(list);
   });
   function showQuality(g) {
     qualityGroup = g;
-    ['machines', 'equipment'].forEach(function (k) {
-      $('#q-' + k).classList.toggle('hide', k !== g);
-    });
+    ['machines', 'equipment'].forEach(function (k) { $('#q-' + k).classList.toggle('hide', k !== g); });
   }
   showQuality('machines');
-
   /* ================= MENUS (desktop dropdowns + phone sidebar) ================= */
   var MENU = {
     products: PRODUCTS.map(function (c) {
