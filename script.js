@@ -310,12 +310,25 @@
     $('#machine-table').appendChild(tr);
   });
 
-  /* quality page */
+   /* quality page: every item of the chosen group is listed (name + photos, no description) */
+  var qualityGroup = 'machines';   /* remembered, so returning to Quality shows the last choice */
   ['machines', 'equipment'].forEach(function (g) {
-    $('#q-' + g + ' .qmount').appendChild(chooser(QUALITY[g].map(function (q) {
-      return { name: q[0], intro: q[2], srcs: [q[1] + '.jpg', q[1] + '-2.jpg', q[1] + '-3.jpg'].map(function (f) { return 'images/' + f; }), required: 1 };
-    }), g, false));
+    var list = el('div', 'qlist');
+    QUALITY[g].forEach(function (q) {
+      var item = el('div', 'qitem');
+      item.appendChild(el('h3', 'gx-name', q[0]));
+      item.appendChild(slider([q[1] + '.jpg', q[1] + '-2.jpg', q[1] + '-3.jpg'].map(function (f) { return 'images/' + f; }), q[0], 1));
+      list.appendChild(item);
+    });
+    $('#q-' + g + ' .qmount').appendChild(list);
   });
+  function showQuality(g) {
+    qualityGroup = g;
+    ['machines', 'equipment'].forEach(function (k) {
+      $('#q-' + k).classList.toggle('hide', k !== g);
+    });
+  }
+  showQuality('machines');
 
   /* ================= MENUS (desktop dropdowns + phone sidebar) ================= */
   var MENU = {
@@ -325,8 +338,8 @@
     machines: MACHINES.map(function (m, i) {
       return { label: m[1], run: function () { machineBox.select(i); jump('machines', '#machine-view'); } };
     }),
-    quality: [['Quality Floor', '#qf'], ['Machines', '#q-machines'], ['Equipment', '#q-equipment']].map(function (q) {
-      return { label: q[0], run: function () { jump('quality', q[1]); } };
+    quality: [['Machines', 'machines'], ['Equipment', 'equipment']].map(function (q) {
+      return { label: q[0], run: function () { showQuality(q[1]); go('quality'); } };
     })
   };
 
