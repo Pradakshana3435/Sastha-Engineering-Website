@@ -57,9 +57,9 @@
   };
 
   var CUSTOMERS = [
-    { name: 'Sundram Fasteners Limited, Autolec Division', short: 'Sundram Fasteners', logo: 'logo-sundram', parts: 'Fuel, oil and water pump parts; Pondy division: differential case pinion shaft and pin' },
+    { name: 'Sundram Fasteners Limited, Autolec Division', short: 'Sundram Fasteners', logo: 'logo-sundram', keep: true, parts: 'Fuel, oil and water pump parts; Pondy division: differential case pinion shaft and pin' },
     { name: 'Same Deutz Fahr India Ltd.', short: 'Same Deutz Fahr', logo: 'logo-sdf', parts: 'Tractor and engine parts' },
-    { name: 'Mitsuba India (P) Ltd., Chennai and Pune plants', short: 'Mitsuba India', logo: 'logo-mitsuba', parts: 'Wiper parts' },
+    { name: 'Mitsuba India (P) Ltd., Chennai and Pune plants', short: 'Mitsuba India', logo: 'logo-mitsuba', keep: true, parts: 'Wiper parts' },
     { name: 'Auto Ignition Limited, Satara plant', short: 'Auto Ignition', logo: 'logo-auto-ignition', parts: 'Wiper parts' },
     { name: 'Prabha Engineering, Pune plant', short: 'Prabha Engineering', logo: 'logo-prabha', parts: 'Wiper parts' },
     { name: 'Motion Industries (USA)', short: 'Motion Industries', logo: 'logo-motion', parts: 'Export' },
@@ -296,6 +296,12 @@
   }), 'machine', true);
   $('#machine-view').appendChild(machineBox);
 
+  /* capability page: machine list as a table */
+  MACHINES.forEach(function (m) {
+    var tr = el('tr'); tr.appendChild(el('td', null, m[2])); tr.appendChild(el('td', null, m[5]));
+    $('#machine-table').appendChild(tr);
+  });
+
   /* quality page */
   ['machines', 'equipment'].forEach(function (g) {
     $('#q-' + g + ' .qmount').appendChild(chooser(QUALITY[g].map(function (q) {
@@ -337,7 +343,7 @@
     dd[name] = { a: a, panel: panel };
     MENU[name].forEach(function (m) {
       var l = el('a', null, m.label); l.href = '#'; l.setAttribute('role', 'menuitem');
-      l.onclick = function (e) { e.preventDefault(); closeMenus(); m.run(); };
+      l.onclick = function (e) { e.preventDefault(); l.blur(); closeMenus(); m.run(); };
       panel.appendChild(l);
     });
     var li = a.parentNode;
@@ -366,8 +372,14 @@
     head.appendChild(el('span', 'side-title', 'Menu')); head.appendChild(x); side.appendChild(head);
 
     function open() { side.classList.add('open'); scrim.classList.add('open'); document.body.classList.add('noscroll'); burger.setAttribute('aria-expanded', 'true'); }
-    function close() { side.classList.remove('open'); scrim.classList.remove('open'); document.body.classList.remove('noscroll'); burger.setAttribute('aria-expanded', 'false'); }
-    function link(t, fn) { var b = el('button', 'side-l', t); b.type = 'button'; b.onclick = function () { close(); fn(); }; return b; }
+    function close() {
+      side.classList.remove('open'); scrim.classList.remove('open'); document.body.classList.remove('noscroll'); burger.setAttribute('aria-expanded', 'false');
+      /* reset for next time: collapse every group, scroll to top, drop focus */
+      $$('.side-g', side).forEach(function (g) { g.classList.remove('open'); $('.side-t', g).setAttribute('aria-expanded', 'false'); });
+      side.scrollTop = 0;
+      if (side.contains(document.activeElement)) document.activeElement.blur();
+    }
+    function link(t, fn) { var b = el('button', 'side-l', t); b.type = 'button'; b.onclick = function () { b.blur(); close(); fn(); }; return b; }
     function group(t, items) {
       var g = el('div', 'side-g'), b = el('button', 'side-l side-t', t), sub = el('div', 'side-sub');
       b.type = 'button'; b.setAttribute('aria-expanded', 'false');
@@ -410,7 +422,7 @@
       if (c.optional) fig.setAttribute('data-optional', '');
       fig.appendChild(photo(src, c.short + ' logo'));
       logos.appendChild(fig);
-      var s = el('div', 'cx-slide'); s.appendChild(photo(src, c.short)); track.appendChild(s);
+      var s = el('div', c.keep ? 'cx-slide keep' : 'cx-slide'); s.appendChild(photo(src, c.short)); track.appendChild(s);
       if (c.parts) {
         var tr = el('tr'); tr.appendChild(el('td', null, c.name)); tr.appendChild(el('td', null, c.parts)); body.appendChild(tr);
       }
@@ -522,9 +534,6 @@
     }
     b.addEventListener('mouseenter', wob); b.addEventListener('touchstart', wob, { passive: true }); b.addEventListener('focus', wob);
   });
-
-  /* top bar links keep a different colour after a click */
-  $$('.topbar a').forEach(function (a) { a.addEventListener('click', function () { a.classList.add('clicked'); }); });
 
   /* about: read more / show less (phone) */
   (function () {
