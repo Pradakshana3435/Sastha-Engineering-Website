@@ -10,7 +10,7 @@
   --body:'IBM Plex Sans','Segoe UI',Arial,sans-serif;
 }
 *{box-sizing:border-box;margin:0;padding:0;border-radius:0}
-html{scroll-behavior:smooth;scroll-padding-top:70px}
+html{scroll-behavior:smooth;scroll-padding-top:calc(70px + var(--mtop-h,0px))}
 body{font-family:var(--body);color:var(--ink);line-height:1.6;font-size:16px;background-color:var(--bg);
   background-image:linear-gradient(rgba(30,40,48,.06) 1px,transparent 1px),linear-gradient(90deg,rgba(30,40,48,.06) 1px,transparent 1px);
   background-size:40px 40px}
@@ -55,7 +55,7 @@ body.tabs [data-tab].on{display:block}
 .topbar a{text-decoration:none;display:inline-block;transition:color .25s,transform .25s}
 .topbar a:hover{color:#d7efe0;transform:translateY(-2px);text-decoration:underline;text-underline-offset:4px}
 
-nav{background:var(--panel);border-bottom:2px solid var(--dark);position:sticky;top:0;z-index:10}
+nav{background:var(--panel);border-bottom:2px solid var(--dark);position:sticky;top:var(--mtop-h,0px);z-index:10}
 nav .wrap{max-width:1500px;display:flex;align-items:center;justify-content:space-between;gap:20px;flex-wrap:wrap;padding-top:12px;padding-bottom:12px}
 .logo{font-family:var(--head);font-weight:700;font-size:1.7rem;text-transform:uppercase;text-decoration:none;letter-spacing:.04em;line-height:1;color:#2d7a4f;margin-left:-20px}
 .mark{height:38px;width:auto;margin-right:16px;vertical-align:middle}
@@ -141,7 +141,7 @@ nav ul a.current{color:var(--acc);border-bottom-color:var(--acc)}
 .gs{position:relative;min-width:0}
 .gs-track{display:flex;gap:14px;overflow-x:auto;scroll-snap-type:x mandatory;scrollbar-width:none;overscroll-behavior-x:contain}
 .gs-track::-webkit-scrollbar{display:none}
-.gs-slide{flex:0 0 calc((100% - 42px)/4);aspect-ratio:4/3;scroll-snap-align:start;position:relative;overflow:hidden;padding:0;cursor:zoom-in;background:var(--panel2);border:2px solid var(--dark)}
+.gs-slide{flex:0 0 calc((100% - 28px)/3);aspect-ratio:4/3;scroll-snap-align:start;position:relative;overflow:hidden;padding:0;cursor:zoom-in;background:var(--panel2);border:2px solid var(--dark)}
 .gs-slide img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
 .gs-slide:focus-visible{outline:3px solid var(--acc);outline-offset:2px}
 .gs-slide.empty{display:flex;align-items:center;justify-content:center;cursor:default;border:2px dashed var(--line)}
@@ -188,6 +188,10 @@ th{background:var(--dark);color:var(--on-dark);font-family:var(--head);text-tran
 td{padding:12px 16px;border-bottom:1px solid var(--line);vertical-align:top}
 td:first-child{font-weight:600}
 #capability td:last-child,#capability th:last-child{white-space:nowrap;width:1%}
+#capability .sec-head{margin-bottom:12px}
+#capability .sec-head+.shop-title{margin-top:0}
+.shop-title+.tbl{margin-top:18px}
+body[data-page="customers"] .cx{display:none}   /* no sliding strip on the Customers page */
 tr:nth-child(even) td{background:var(--bg)}
 
 /* sliding strip (every page) */
@@ -261,7 +265,7 @@ body.noscroll{overflow:hidden}
 
 /* ================= tablet / small laptop ================= */
 @media (max-width:1100px){
-  .gs-slide{flex-basis:calc((100% - 28px)/3)}
+  .gs-slide{flex-basis:calc((100% - 14px)/2)}
   .cx{--n:3}
 }
 
@@ -273,7 +277,7 @@ body.noscroll{overflow:hidden}
   .sec-head{margin-bottom:18px}
 
   /* quick links, hidden top bar, hamburger instead of the tab row */
-  .mtop{display:flex;align-items:center;justify-content:center;background:linear-gradient(90deg,#f3f5f6,#dde2e5);padding:9px 14px;border-bottom:1px solid #c3cbd0}
+  .mtop{position:sticky;top:0;z-index:11;display:flex;align-items:center;justify-content:center;background:linear-gradient(90deg,#f3f5f6,#dde2e5);padding:9px 14px;border-bottom:1px solid #c3cbd0}
   .mtop a{font-weight:600;font-size:.8rem;letter-spacing:.02em;text-transform:uppercase;text-decoration:none;color:var(--acc);padding:0 12px;line-height:1.2;border-left:1px solid #7c8890}
   .mtop a:first-child{border-left:0}
   .topbar,nav ul,.ddm{display:none!important}
@@ -343,8 +347,9 @@ body.noscroll{overflow:hidden}
   .gx-sel{font-size:.85rem;max-width:none}
   .gx-name{font-size:1.02rem}
   .mdesc{font-size:.9rem}
+  #machine-view .mdesc{display:none}   /* phone: no machine descriptions */
   .gs-track{gap:10px}
-  .gs-slide{flex-basis:calc((100% - 10px)/2)}
+  .gs-slide{flex-basis:100%}
   .gs-a{width:34px;height:54px;font-size:2rem}
   .gs-p{left:0}.gs-n{right:0}
   .shop-title{margin-top:40px;font-size:1.1rem}
@@ -370,6 +375,8 @@ body.noscroll{overflow:hidden}
   .logos .ph::after{font-size:.55rem;padding:4px;line-height:1.3}
   table{min-width:0;table-layout:fixed}
   th{font-size:.72rem;letter-spacing:.04em;padding:8px 6px;width:50%}
+  #capability th:first-child{width:68%}
+  #capability th:last-child,#capability td:last-child{width:32%;white-space:normal}
   td{font-size:.8rem;line-height:1.35;padding:9px 6px;overflow-wrap:anywhere}
   .cx{--n:2;--g:12px;padding:20px 0 24px}
   .cx-slide{height:115px}

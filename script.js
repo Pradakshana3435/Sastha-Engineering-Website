@@ -103,12 +103,20 @@
   /* ================= PAGE SET-UP ================= */
   $('#yr').textContent = new Date().getFullYear();
 
+  /* phone: the quick-link bar stays pinned, the nav sticks just below it */
+  (function () {
+    var bar = $('.mtop');
+    function set() { document.documentElement.style.setProperty('--mtop-h', (mobile.matches ? bar.offsetHeight : 0) + 'px'); }
+    set(); window.addEventListener('resize', set); window.addEventListener('load', set);
+  })();
+
   /* ----- tabs ----- */
   var tabs = $$('[data-tab]'), navLinks = $$('nav [data-go]');
   document.body.classList.add('tabs');
   function go(name, o) {
     o = o || {};
     document.body.classList.toggle('about-only', !!o.about);
+    document.body.dataset.page = name;
     tabs.forEach(function (t) { t.classList.toggle('on', t.dataset.tab === name); });
     navLinks.forEach(function (l) { l.classList.toggle('current', l.dataset.go === name); });
     if (o.scroll !== false) window.scrollTo({ top: 0, behavior: 'smooth' });
