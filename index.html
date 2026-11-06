@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" class="js">
+<html lang="en">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -9,38 +9,52 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="style.css?v=3">
+<link rel="stylesheet" href="style.css">
 </head>
 <body>
+
+<!-- phone only: quick links -->
+<div class="mtop">
+  <a href="#" data-go="home">Home</a>
+  <a href="#about" data-about>About us</a>
+  <a href="#contact">Contact us</a>
+</div>
+
 <div class="topbar"><div class="wrap">
   <span>SIDCO Industrial Estate, Ambattur, Chennai 600 098</span>
   <span>Ph: <a href="tel:+919840779640">+919840779640</a> &nbsp;|&nbsp; <a href="mailto:sasthaenggservices@yahoo.co.in">sasthaenggservices@yahoo.co.in</a></span>
 </div></div>
 
-<nav><div class="wrap">
-  <a class="logo" href="#"><img class="mark" src="images/logo-sastha.png" alt="">Sastha <span>Engineering</span></a>
-  <ul>
-    <li><a href="#" data-go="home">Home</a></li>
-    <li><a href="#" data-go="products">Products</a></li>
-    <li><a href="#" data-go="capability">Machines</a></li>
-    <li><a href="#" data-go="quality">Quality</a></li>
-    <li><a href="#" data-go="customers">Customers</a></li>
-    <li><a href="#contact">Contact</a></li>
-  </ul>
-  <a class="btn" href="#cf">Request a Quote</a>
-  <button type="button" class="burger" aria-label="Open menu" aria-expanded="false"><span></span><span></span><span></span></button>
-</div></nav>
+<nav>
+  <div class="wrap">
+    <a class="logo" href="#" data-go="home"><img class="mark" src="images/logo-sastha.png" alt="">Sastha <span>Engineering</span></a>
+    <ul>
+      <li><a href="#" data-go="home">Home</a></li>
+      <li class="has-dd"><a href="#" data-go="products" data-dd="products" aria-haspopup="true" aria-expanded="false">Products</a></li>
+      <li class="has-dd"><a href="#" data-go="machines" data-dd="machines" aria-haspopup="true" aria-expanded="false">Machines</a></li>
+      <li class="has-dd"><a href="#" data-go="quality" data-dd="quality" aria-haspopup="true" aria-expanded="false">Quality</a></li>
+      <li><a href="#" data-go="organisation">Organisation</a></li>
+      <li><a href="#" data-go="customers">Customers</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+    <a class="btn" href="#cf">Request a Quote</a>
+    <button type="button" class="burger" aria-label="Open menu" aria-expanded="false">&#9776;</button>
+  </div>
+  <!-- dropdown items are filled in by script.js -->
+  <div class="ddm" id="dd-products" role="menu" aria-label="Product categories"></div>
+  <div class="ddm" id="dd-machines" role="menu" aria-label="Machines"></div>
+  <div class="ddm" id="dd-quality" role="menu" aria-label="Quality and inspection"></div>
+</nav>
 
-<header class="hero" id="top" data-tab="home">
+<!-- ============ HOME ============ -->
+<header class="hero" data-tab="home">
   <div class="hero-bg"><div class="slide on" style="background-image:url(images/hero.jpg)"></div></div>
   <div class="wrap">
-    <div>
-      <p class="eyebrow">Precision turned parts since 1995</p>
-      <h1>Turned components built to your drawing</h1>
-      <p class="lead">Sastha Engineering manufactures precision turned parts for automobile, tractor and engine applications from two units in SIDCO&nbsp;Industrial&nbsp;Estate, Ambattur, Chennai.</p>
-      <div class="actions"><a class="btn" href="#contact">Contact Us</a><a class="btn alt" href="#" data-go="capability">View Machines</a></div>
-      <div class="certs"><span>IATF 16949:2016</span><span>ISO 9001:2015</span><span>Certified by TUV</span></div>
-    </div>
+    <p class="eyebrow">Precision turned parts since 1995</p>
+    <h1>Turned components built to your drawing</h1>
+    <p class="lead">Sastha Engineering manufactures precision turned parts for automobile, tractor and engine applications from two units in SIDCO&nbsp;Industrial&nbsp;Estate, Ambattur, Chennai.</p>
+    <div class="actions"><a class="btn" href="#contact">Contact Us</a><a class="btn alt" href="#" data-go="machines">View Machines</a></div>
+    <div class="certs"><span>IATF 16949:2016</span><span>ISO 9001:2015</span><span>Certified by TUV</span></div>
   </div>
 </header>
 
@@ -56,14 +70,9 @@
     <p class="eyebrow">About the company</p>
     <h2>Our milestones</h2>
   </div>
-
   <figure class="ax-video">
-    <video controls playsinline preload="metadata">
-      <source src="images/about.mp4#t=0.1" type="video/mp4">
-      Your browser cannot play this video.
-    </video>
+    <video controls playsinline preload="metadata"><source src="images/about.mp4#t=0.1" type="video/mp4">Your browser cannot play this video.</video>
   </figure>
-
   <div class="abt" id="abt">
     <p class="ax-first">Sastha Engineering was established in 1995 and is engaged in manufacturing precision turned parts for automobile, tractor and engine components.</p>
     <div class="ax-more">
@@ -72,7 +81,6 @@
     </div>
     <button type="button" class="rm" aria-expanded="false">Read more&hellip;</button>
   </div>
-
   <dl class="facts">
     <div><dt>Built-up area</dt><dd>16,000 sq ft</dd></div>
     <div><dt>Engineers</dt><dd>5</dd></div>
@@ -93,198 +101,94 @@
   </ol>
 </div></section>
 
+<!-- ============ PRODUCTS (cards built by script.js) ============ -->
 <section id="products" data-tab="products"><div class="wrap">
-  <div class="sec-head">
-    <p class="eyebrow">Our products</p>
-    <h2>Child parts and assemblies</h2>
-    <p>For Same Deutz Fahr India Ltd. we manufacture child parts and supply the finished assemblies.</p>
-  </div>
+  <div class="sec-head"><p class="eyebrow">Our products</p><h2>Products</h2></div>
+  <div id="product-list"></div>
+</div></section>
 
-  <div class="prod">
-    <div class="title"><h3>Bonnet lock</h3><p>We manufacture the child parts for the bonnet lock and supply it in assembled condition.</p></div>
-    <figure><div class="ph r43" data-file="images/bonnet-child.jpg"><img src="images/bonnet-child.jpg" alt="Bonnet lock child parts"></div><p>Child parts</p></figure>
-    <figure><div class="ph r43" data-file="images/bonnet-assembly.jpg"><img src="images/bonnet-assembly.jpg" alt="Bonnet lock assembly"></div><p>Assembled part</p></figure>
-  </div>
-
-  <div class="prod">
-    <div class="title"><h3>Valve body</h3><p>We manufacture the child parts for the valve body and supply it in assembled condition.</p></div>
-    <figure><div class="ph r43" data-file="images/valve-child.jpg"><img src="images/valve-child.jpg" alt="Valve body child parts"></div><p>Child parts</p></figure>
-    <figure><div class="ph r43" data-file="images/valve-assembly.jpg"><img src="images/valve-assembly.jpg" alt="Valve body assembly"></div><p>Assembled part</p></figure>
-  </div>
-
-  <div class="prod">
-    <div class="title"><h3>Pulley tensioner</h3><p>We manufacture the child parts for the pulley tensioner and supply the pulley in assembled condition.</p></div>
-    <figure><div class="ph r43" data-file="images/pulley-child.jpg"><img src="images/pulley-child.jpg" alt="Pulley tensioner child parts"></div><p>Child parts</p></figure>
-    <figure><div class="ph r43" data-file="images/pulley-assembly.jpg"><img src="images/pulley-assembly.jpg" alt="Pulley assembly"></div><p>Assembled part</p></figure>
-  </div>
-
-  <div class="gal">
-    <div class="ph r11" data-file="images/product-1.jpg"><img src="images/product-1.jpg" alt="Turned part"></div>
-    <div class="ph r11" data-file="images/product-2.jpg"><img src="images/product-2.jpg" alt="Turned part"></div>
-    <div class="ph r11" data-file="images/product-3.jpg"><img src="images/product-3.jpg" alt="Turned part"></div>
-    <div class="ph r11" data-file="images/product-4.jpg"><img src="images/product-4.jpg" alt="Turned part"></div>
+<!-- ============ MACHINES (gallery built by script.js) ============ -->
+<section id="machines" data-tab="machines" class="alt"><div class="wrap">
+  <div class="sec-head"><p class="eyebrow">Manufacturing capability</p><h2>List of machines</h2></div>
+  <div id="machine-view"></div>
+  <h3 class="shop-title">Shop floor</h3>
+  <div class="fac" data-zoom>
+    <figure class="ph r169" data-file="images/machine-shop-1.jpg"><img src="images/machine-shop-1.jpg" alt="Machine shop"></figure>
+    <div class="stack">
+      <figure class="ph" data-file="images/machine-shop-2.jpg"><img src="images/machine-shop-2.jpg" alt="Machine shop"></figure>
+      <figure class="ph" data-file="images/machine-shop-3.jpg"><img src="images/machine-shop-3.jpg" alt="Machine shop"></figure>
+    </div>
   </div>
 </div></section>
 
-<section id="capability" data-tab="capability" style="background:var(--panel)"><div class="wrap">
-  <div class="sec-head">
-    <p class="eyebrow">Manufacturing capability</p>
-    <h2>List of machines</h2>
-  </div>
-  <div class="mtabs" role="group" aria-label="Machine types"><button type="button" class="mt on" data-m="cnc">CNC lathes</button><button type="button" class="mt" data-m="vmc">Vertical machining</button><button type="button" class="mt" data-m="grinding">Centreless grinding</button><button type="button" class="mt" data-m="capstan">Capstan lathe</button><button type="button" class="mt" data-m="auto-lathe">Auto lathe</button><button type="button" class="mt" data-m="thread-rolling">Thread rolling</button><button type="button" class="mt" data-m="milling">Milling</button><button type="button" class="mt" data-m="drilling">Drilling and tapping</button><button type="button" class="mt" data-m="band-saw">Band saw</button></div>
-  <div class="mpanel on" id="m-cnc">
-    <h3>CNC lathe and sliding head stock</h3>
-    <p class="sl-desc">CNC lathe (Ace Jobber and Cub) and sliding head stock, 22 mm and 32 mm capacity, 200 and 165 mm holding. 35 Nos.</p>
-    <div class="slider" data-alt="CNC lathe and sliding head stock" data-imgs="images/machine-shop-1.jpg,images/machine-shop-2.jpg,images/machine-shop-3.jpg,images/machine-cnc-4.jpg"></div>
-  </div>
-  <div class="mpanel" id="m-vmc">
-    <h3>Vertical machining centre</h3>
-    <p class="sl-desc">AMS MCV 400, 600 x 450 x 500 mm. 2 Nos.</p>
-    <div class="slider" data-alt="Vertical machining centre" data-imgs="images/machine-vmc-1.jpg,images/machine-vmc-2.jpg,images/machine-vmc-3.jpg,images/machine-vmc-4.jpg"></div>
-  </div>
-  <div class="mpanel" id="m-grinding">
-    <h3>Centreless grinding</h3>
-    <p class="sl-desc">Bhagwan and Sons, 100 mm. 5 Nos.</p>
-    <div class="slider" data-alt="Centreless grinding" data-imgs="images/machine-grinding-1.jpg,images/machine-grinding-2.jpg,images/machine-grinding-3.jpg,images/machine-grinding-4.jpg"></div>
-  </div>
-  <div class="mpanel" id="m-capstan">
-    <h3>Capstan lathe</h3>
-    <p class="sl-desc">25 and 32 holding capacity. 5 Nos.</p>
-    <div class="slider" data-alt="Capstan lathe" data-imgs="images/machine-capstan-1.jpg,images/machine-capstan-2.jpg,images/machine-capstan-3.jpg,images/machine-capstan-4.jpg"></div>
-  </div>
-  <div class="mpanel" id="m-auto-lathe">
-    <h3>Auto lathe</h3>
-    <p class="sl-desc">PMT Traub, A32. 8 Nos.</p>
-    <div class="slider" data-alt="Auto lathe" data-imgs="images/machine-auto-lathe-1.jpg,images/machine-auto-lathe-2.jpg,images/machine-auto-lathe-3.jpg,images/machine-auto-lathe-4.jpg"></div>
-  </div>
-  <div class="mpanel" id="m-thread-rolling">
-    <h3>Thread rolling</h3>
-    <p class="sl-desc">BSA, 2 inch. 5 Nos.</p>
-    <div class="slider" data-alt="Thread rolling" data-imgs="images/machine-thread-rolling-1.jpg,images/machine-thread-rolling-2.jpg,images/machine-thread-rolling-3.jpg,images/machine-thread-rolling-4.jpg"></div>
-  </div>
-  <div class="mpanel" id="m-milling">
-    <h3>Milling machine</h3>
-    <p class="sl-desc">Pioneer, No. 2. 2 Nos.</p>
-    <div class="slider" data-alt="Milling machine" data-imgs="images/machine-milling-1.jpg,images/machine-milling-2.jpg,images/machine-milling-3.jpg,images/machine-milling-4.jpg"></div>
-  </div>
-  <div class="mpanel" id="m-drilling">
-    <h3>Drilling and tapping</h3>
-    <p class="sl-desc">1 inch capacity. 6 Nos.</p>
-    <div class="slider" data-alt="Drilling and tapping" data-imgs="images/machine-drilling-1.jpg,images/machine-drilling-2.jpg,images/machine-drilling-3.jpg,images/machine-drilling-4.jpg"></div>
-  </div>
-  <div class="mpanel" id="m-band-saw">
-    <h3>Band saw cutting machine</h3>
-    <p class="sl-desc">Cutting of bar stock. 1 No.</p>
-    <div class="slider" data-alt="Band saw cutting machine" data-imgs="images/machine-band-saw-1.jpg,images/machine-band-saw-2.jpg,images/machine-band-saw-3.jpg,images/machine-band-saw-4.jpg"></div>
-  </div>
-</div></section>
-
+<!-- ============ QUALITY ============ -->
 <section id="quality" data-tab="quality"><div class="wrap">
-  <div class="sec-head">
+  <div class="q-intro" id="qf">
     <p class="eyebrow">Quality and inspection</p>
-    <h2>Measured before it ships</h2>
+    <h2>Quality Floor</h2>
+    <p>Every batch is inspected and measured against the drawing here before it ships.</p>
   </div>
-  <div class="qfloor">
-    <h3>Quality floor</h3>
-    <p class="sl-desc">Final inspection area and standards room, working under IATF 16949:2016 and ISO 9001:2015 certification by TUV.</p>
-    <figure class="ph qf-photo" data-file="images/quality-floor.jpg"><img src="images/quality-floor.jpg" alt="Quality floor"></figure>
+  <figure class="qf"><img src="images/quality-floor.jpg" alt="Quality floor"></figure>
+
+  <div class="qblock" id="q-machines">
+    <h2 class="qh">Machines</h2>
+    <p class="qi">Inspection and measurement machines used to check parts against the drawing.</p>
+    <div class="qmount"></div>
   </div>
-  <div class="eq">
-    <h3>Profile projector</h3>
-    <p class="sl-desc">Magnifies the outline of a part on a screen to check profiles, radii and angles.</p>
-    <div class="slider" data-alt="Profile projector" data-imgs="images/q-profile-projector-1.jpg,images/q-profile-projector-2.jpg,images/q-profile-projector-3.jpg,images/q-profile-projector-4.jpg"></div>
-  </div>
-  <div class="eq">
-    <h3>Video measurement system</h3>
-    <p class="sl-desc">Camera based, non-contact measurement of small turned parts.</p>
-    <div class="slider" data-alt="Video measurement system" data-imgs="images/inspection-2.jpg,images/q-video-measurement-2.jpg,images/q-video-measurement-3.jpg,images/q-video-measurement-4.jpg"></div>
-  </div>
-  <div class="eq">
-    <h3>Trimos 2D height gauge</h3>
-    <p class="sl-desc">Measures heights, diameters and distances with high accuracy.</p>
-    <div class="slider" data-alt="Trimos 2D height gauge" data-imgs="images/inspection-3.jpg,images/q-trimos-height-gauge-2.jpg,images/q-trimos-height-gauge-3.jpg,images/q-trimos-height-gauge-4.jpg"></div>
-  </div>
-  <div class="eq">
-    <h3>Roughness tester</h3>
-    <p class="sl-desc">Measures the surface finish of machined parts.</p>
-    <div class="slider" data-alt="Roughness tester" data-imgs="images/q-roughness-tester-1.jpg,images/q-roughness-tester-2.jpg,images/q-roughness-tester-3.jpg,images/q-roughness-tester-4.jpg"></div>
-  </div>
-  <div class="eq">
-    <h3>Height gauge</h3>
-    <p class="sl-desc">Checks heights and positions of features from a reference surface.</p>
-    <div class="slider" data-alt="Height gauge" data-imgs="images/q-height-gauge-1.jpg,images/q-height-gauge-2.jpg,images/q-height-gauge-3.jpg,images/q-height-gauge-4.jpg"></div>
-  </div>
-  <div class="eq">
-    <h3>Air gauge</h3>
-    <p class="sl-desc">Checks bore and shaft diameters using air pressure, without touching the surface.</p>
-    <div class="slider" data-alt="Air gauge" data-imgs="images/q-air-gauge-1.jpg,images/q-air-gauge-2.jpg,images/q-air-gauge-3.jpg,images/q-air-gauge-4.jpg"></div>
-  </div>
-  <div class="eq">
-    <h3>Slip gauges</h3>
-    <p class="sl-desc">Reference blocks used to set and check measuring instruments.</p>
-    <div class="slider" data-alt="Slip gauges" data-imgs="images/q-slip-gauges-1.jpg,images/q-slip-gauges-2.jpg,images/q-slip-gauges-3.jpg,images/q-slip-gauges-4.jpg"></div>
-  </div>
-  <div class="eq">
-    <h3>Bore dial gauges</h3>
-    <p class="sl-desc">Measure internal diameters and check taper and roundness of bores.</p>
-    <div class="slider" data-alt="Bore dial gauges" data-imgs="images/q-bore-dial-gauges-1.jpg,images/q-bore-dial-gauges-2.jpg,images/q-bore-dial-gauges-3.jpg,images/q-bore-dial-gauges-4.jpg"></div>
-  </div>
-  <div class="eq">
-    <h3>Pitch micrometer</h3>
-    <p class="sl-desc">Measures the pitch diameter of threads.</p>
-    <div class="slider" data-alt="Pitch micrometer" data-imgs="images/q-pitch-micrometer-1.jpg,images/q-pitch-micrometer-2.jpg,images/q-pitch-micrometer-3.jpg,images/q-pitch-micrometer-4.jpg"></div>
-  </div>
-  <div class="eq">
-    <h3>Digital micrometer</h3>
-    <p class="sl-desc">Digital reading of external dimensions.</p>
-    <div class="slider" data-alt="Digital micrometer" data-imgs="images/q-digital-micrometer-1.jpg,images/q-digital-micrometer-2.jpg,images/q-digital-micrometer-3.jpg,images/q-digital-micrometer-4.jpg"></div>
-  </div>
-  <div class="eq">
-    <h3>Digital vernier</h3>
-    <p class="sl-desc">Quick digital reading of outside, inside and depth dimensions.</p>
-    <div class="slider" data-alt="Digital vernier" data-imgs="images/q-digital-vernier-1.jpg,images/q-digital-vernier-2.jpg,images/q-digital-vernier-3.jpg,images/q-digital-vernier-4.jpg"></div>
-  </div>
-  <div class="eq">
-    <h3>Refractometer</h3>
-    <p class="sl-desc">Checks the concentration of the coolant used on the machines.</p>
-    <div class="slider" data-alt="Refractometer" data-imgs="images/q-refractometer-1.jpg,images/q-refractometer-2.jpg,images/q-refractometer-3.jpg,images/q-refractometer-4.jpg"></div>
-  </div>
-  <div class="eq">
-    <h3>Coordinate measuring machine (CMM)</h3>
-    <p class="sl-desc">Probe based measurement of complex dimensions, recently added to the factory.</p>
-    <div class="slider" data-alt="Coordinate measuring machine (CMM)" data-imgs="images/inspection-1.jpg,images/q-cmm-2.jpg,images/q-cmm-3.jpg,images/q-cmm-4.jpg"></div>
+  <div class="qblock" id="q-equipment">
+    <h2 class="qh">Equipment</h2>
+    <p class="qi">Precision instruments used for everyday inspection of turned parts.</p>
+    <div class="qmount"></div>
   </div>
 </div></section>
 
-<section id="customers" data-tab="customers" class="cust" style="background:var(--panel)"><div class="wrap">
-  <div class="sec-head">
-    <p class="eyebrow">Our customers</p>
-    <h2>Who we supply</h2>
+<!-- ============ ORGANISATION ============ -->
+<section id="organisation" data-tab="organisation"><div class="wrap">
+  <div class="org">
+    <div class="org-intro">
+      <h2>Organisation</h2>
+      <p>Production, quality and accounts report to the Managing Director. Quality runs its own line and final inspection from the standards room to dispatch.</p>
+    </div>
+    <div class="org-tree" role="img" aria-label="Organisation chart: Managing Director over Production in charge, Quality in charge and Accountant">
+      <ul class="org-root"><li><span class="node md">MD</span>
+        <ul class="sub">
+          <li><span class="node">Production in charge</span>
+            <ul class="sub">
+              <li><span class="node">Supplier process follower</span><ul class="sub"><li><span class="node">Dispatch and packing</span></li></ul></li>
+              <li><span class="node">Setter</span><ul class="sub"><li><span class="node">Operators</span></li></ul></li>
+            </ul>
+          </li>
+          <li><span class="node">Quality in charge</span>
+            <ul class="sub">
+              <li><span class="node">Standards room and receipt</span></li>
+              <li><span class="node">Line inspector</span></li>
+              <li><span class="node">Final inspector</span></li>
+            </ul>
+          </li>
+          <li><span class="node">Accountant</span><ul class="sub"><li><span class="node">Finished goods stocks</span></li></ul></li>
+        </ul>
+      </li></ul>
+    </div>
   </div>
+</div></section>
+
+<!-- ============ CUSTOMERS (logos and table built by script.js) ============ -->
+<section id="customers" data-tab="customers" class="alt"><div class="wrap">
+  <div class="sec-head"><p class="eyebrow">Our customers</p><h2>Who we supply</h2></div>
+  <div class="logos"></div>
   <div class="tbl"><table>
     <thead><tr><th>Customer</th><th>Parts supplied</th></tr></thead>
-    <tbody>
-      <tr><td>Sundram Fasteners Limited, Autolec Division</td><td>Fuel, oil and water pump parts; Pondy division: differential case pinion shaft and pin</td></tr>
-      <tr><td>Same Deutz Fahr India Ltd.</td><td>Tractor and engine parts</td></tr>
-      <tr><td>Mitsuba India (P) Ltd., Chennai and Pune plants</td><td>Wiper parts</td></tr>
-      <tr><td>Auto Ignition Limited, Satara plant</td><td>Wiper parts</td></tr>
-      <tr><td>Prabha Engineering, Pune plant</td><td>Wiper parts</td></tr>
-      <tr><td>Motion Industries (USA)</td><td>Export</td></tr>
-      <tr><td>APA Engineering Pvt Ltd.</td><td>Export</td></tr>
-    </tbody>
+    <tbody></tbody>
   </table></div>
-  <div class="logos">
-    <figure class="ph" data-file="Sundram Fasteners: images/logo-sundram.png"><img src="images/logo-sundram.png" alt="Sundram Fasteners logo"></figure>
-    <figure class="ph" data-file="Same Deutz Fahr: images/logo-sdf.png"><img src="images/logo-sdf.png" alt="Same Deutz Fahr logo"></figure>
-    <figure class="ph" data-file="Mitsuba India: images/logo-mitsuba.png"><img src="images/logo-mitsuba.png" alt="Mitsuba India logo"></figure>
-    <figure class="ph" data-file="Auto Ignition: images/logo-auto-ignition.png"><img src="images/logo-auto-ignition.png" alt="Auto Ignition logo"></figure>
-    <figure class="ph" data-file="Prabha Engineering: images/logo-prabha.png"><img src="images/logo-prabha.png" alt="Prabha Engineering logo"></figure>
-    <figure class="ph" data-file="Motion Industries: images/logo-motion.png"><img src="images/logo-motion.png" alt="Motion Industries logo"></figure>
-    <figure class="ph" data-file="APA Engineering: images/logo-apa.png"><img src="images/logo-apa.png" alt="APA Engineering logo"></figure>
-    <figure class="ph" data-file="Simpson: images/logo-simpson.png"><img src="images/logo-simpson.png" alt="Simpson logo" onerror="this.remove()"></figure>
-  </div>
 </div></section>
 
+<!-- sliding logo strip, shown on every page -->
+<section class="cx" aria-label="Our customers"><div class="wrap">
+  <h2 class="cx-title">Our customers</h2>
+  <div class="cx-view"><div class="cx-track"></div></div>
+</div></section>
+
+<!-- ============ CONTACT ============ -->
 <section class="contact" id="contact"><div class="wrap">
   <p class="eyebrow">Contact</p>
   <h2>Talk to our team</h2>
@@ -295,38 +199,39 @@
       <address>26B/3B, 5th Street, SIDCO Industrial Estate<br>North Phase, Ambattur<br>Chennai 600 098, Tamil Nadu, India</address></div>
   </div>
   <div class="cbox">
-    <div class="cp-d"><small>Contact person</small><a href="tel:+919840779640">Mr. S. Senthil Kumar, +91 98407 79640</a></div>
+    <div class="cp-d"><small>Contact person</small><a href="tel:+919840779640">Mr. S. Senthil Kumar, B.E. MBA, +91 98407 79640</a></div>
     <div class="cp-d"><small>Telephone</small><a href="tel:04443111640">044 4311 1640</a></div>
-    <div class="cp-m"><small>Contact person</small><b class="cp-name">Mr. S. Senthil Kumar</b><span class="cp-nums"><a href="tel:+919840779640">+91 98407 79640</a><a href="tel:04443111640">044 4311 1640</a></span></div>
-    <div><small>Email</small><a href="mailto:sasthaenggservices@yahoo.co.in">sasthaenggservices@yahoo.co.in</a></div>
+    <div class="cp-m"><small>Contact person</small><b class="cp-name">Mr. S. Senthil Kumar, B.E. MBA</b>
+      <span class="cp-nums"><a href="tel:+919840779640">+91 98407 79640</a><a href="tel:04443111640">044 4311 1640</a></span></div>
+    <div class="cb-mail"><small>Email</small><a href="mailto:sasthaenggservices@yahoo.co.in">sasthaenggservices@yahoo.co.in</a></div>
   </div>
+
   <form class="form" id="cf" action="https://formsubmit.co/ajax/sasthaenggservices@yahoo.co.in" method="POST">
     <h3>Send an enquiry</h3>
     <div class="fgrid">
       <div><label for="n">Name</label><input id="n" name="name" required autocomplete="name"></div>
       <div><label for="c">Company</label><input id="c" name="company" required autocomplete="organization"></div>
-      <div><label for="e">Email</label><input id="e" name="email" type="email" required autocomplete="email"></div>
-      <div><label for="p">Phone (optional)</label><input id="p" name="phone" type="tel" autocomplete="tel"></div>
+      <div><label for="e">Email (optional)</label><input id="e" name="email" type="email" autocomplete="email"></div>
+      <div><label for="p">Phone</label><input id="p" name="phone" type="tel" required autocomplete="tel"></div>
       <div class="full"><label for="m">Part details and quantity</label><textarea id="m" name="message" required></textarea></div>
     </div>
-    <input type="hidden" name="_subject" value="New website enquiry"><input type="hidden" name="_captcha" value="false"><input class="hp" type="text" name="_honey" tabindex="-1" autocomplete="off" aria-hidden="true">
+    <input type="hidden" name="_subject" value="New website enquiry">
+    <input type="hidden" name="_captcha" value="false">
+    <input class="hp" type="text" name="_honey" tabindex="-1" autocomplete="off" aria-hidden="true">
     <button class="btn" type="submit">Send Enquiry</button>
     <p id="fmsg" role="status"></p>
   </form>
+
   <div class="maps">
     <div class="mapcol">
       <h3>Factory 1</h3>
-      <div class="mapbox">
-        <iframe src="https://maps.google.com/maps?q=13.1140995,80.1691259&z=17&output=embed" loading="lazy" referrerpolicy="no-referrer-when-downgrade" allowfullscreen title="Factory 1 location"></iframe>
-      </div>
-      <p style="margin-top:14px"><a class="btn" href="https://www.google.com/maps/place/Sastha+Engineering/@13.1140995,80.1691259,17z/data=!3m1!4b1!4m6!3m5!1s0x3a52646165449b19:0x7ebd61d13b6caffa!8m2!3d13.1140995!4d80.1691259!16s%2Fg%2F1v5_7vrt?entry=ttu&g_ep=EgoyMDI2MTAwNi4wIKXMDSoASAFQAw%3D%3D" target="_blank" rel="noopener">Open Factory 1 in Google Maps</a></p>
+      <div class="mapbox"><iframe src="https://maps.google.com/maps?q=13.1140995,80.1691259&z=17&output=embed" loading="lazy" referrerpolicy="no-referrer-when-downgrade" allowfullscreen title="Factory 1 location"></iframe></div>
+      <p><a class="btn" href="https://www.google.com/maps/place/Sastha+Engineering/@13.1140995,80.1691259,17z/data=!3m1!4b1!4m6!3m5!1s0x3a52646165449b19:0x7ebd61d13b6caffa!8m2!3d13.1140995!4d80.1691259!16s%2Fg%2F1v5_7vrt?entry=ttu&g_ep=EgoyMDI2MTAwNi4wIKXMDSoASAFQAw%3D%3D" target="_blank" rel="noopener">Open Factory 1 in Google Maps</a></p>
     </div>
     <div class="mapcol">
       <h3>Factory 2</h3>
-      <div class="mapbox">
-        <iframe src="https://maps.google.com/maps?q=13.1067407,80.1688372&z=17&output=embed" loading="lazy" referrerpolicy="no-referrer-when-downgrade" allowfullscreen title="Factory 2 location"></iframe>
-      </div>
-      <p style="margin-top:14px"><a class="btn" href="https://www.google.com/maps/place/Sastha+Engineering+UNIT+II/@13.1067459,80.1662623,17z/data=!3m1!4b1!4m6!3m5!1s0x3a52634e79eac6b3:0xe67b29d3117706a5!8m2!3d13.1067407!4d80.1688372!16s%2Fg%2F11zzfv8my6?entry=ttu&g_ep=EgoyMDI2MTAxMy4wIKXMDSoASAFQAw%3D%3D" target="_blank" rel="noopener">Open Factory 2 in Google Maps</a></p>
+      <div class="mapbox"><iframe src="https://maps.google.com/maps?q=13.1067407,80.1688372&z=17&output=embed" loading="lazy" referrerpolicy="no-referrer-when-downgrade" allowfullscreen title="Factory 2 location"></iframe></div>
+      <p><a class="btn" href="https://www.google.com/maps/place/Sastha+Engineering+UNIT+II/@13.1067459,80.1662623,17z/data=!3m1!4b1!4m6!3m5!1s0x3a52634e79eac6b3:0xe67b29d3117706a5!8m2!3d13.1067407!4d80.1688372!16s%2Fg%2F11zzfv8my6?entry=ttu&g_ep=EgoyMDI2MTAxMy4wIKXMDSoASAFQAw%3D%3D" target="_blank" rel="noopener">Open Factory 2 in Google Maps</a></p>
     </div>
   </div>
 </div></section>
@@ -336,6 +241,6 @@
   <span>Precision turned parts, Ambattur, Chennai</span>
 </div></footer>
 
-<script src="script.js?v=3"></script>
+<script src="script.js"></script>
 </body>
 </html>
