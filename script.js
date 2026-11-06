@@ -100,6 +100,18 @@
     (im.closest('.cx-slide') || im.closest('[data-optional]') || im).remove();
   }, true);
 
+  /* machine / inspection titles: always one line, font shrinks only if a title is still too long */
+  function fitTitles() {
+    $$('.gx-name').forEach(function (h) {
+      if (!h.offsetParent) return;
+      h.style.fontSize = '';
+      var s = parseFloat(getComputedStyle(h).fontSize);
+      while (h.scrollWidth > h.clientWidth && s > 9) { s -= 0.5; h.style.fontSize = s + 'px'; }
+    });
+  }
+  window.addEventListener('resize', fitTitles);
+  if (document.fonts && document.fonts.ready) document.fonts.ready.then(fitTitles);
+
   /* ================= PAGE SET-UP ================= */
   $('#yr').textContent = new Date().getFullYear();
 
@@ -126,6 +138,8 @@
     document.body.dataset.page = name;
     tabs.forEach(function (t) { t.classList.toggle('on', t.dataset.tab === name); });
     navLinks.forEach(function (l) { l.classList.toggle('current', l.dataset.go === name); });
+    if (MENU) refreshMenus();   /* MENU is defined further down; skipped on the very first call */
+    fitTitles();
     if (!o.nopush) commit();
     if (o.scroll !== false) window.scrollTo({ top: 0, behavior: 'smooth' });
   }
@@ -142,6 +156,8 @@
     if (!a) return;
     e.preventDefault();
 
+    /* clicking the "Products" label itself shows both categories */
+    if (a.dataset.go === 'products') showCat('all');
     go(a.dataset.go);
   });
   go('home', { scroll: false, nonpush: true });
@@ -233,7 +249,7 @@
   showCat('all');
 
   /* ================= GALLERY (machines + quality) ================= */
-    function slider(srcs, name, required, cls) {
+  function slider(srcs, name, required, cls) {
     var w = el('div', 'gs' + (cls ? ' ' + cls : '')), tr = el('div', 'gs-track'), p = el('button', 'gs-a gs-p', '\u2039'), n = el('button', 'gs-a gs-n', '\u203A');
     p.type = n.type = 'button'; tr.setAttribute('data-zoom', '');
     p.setAttribute('aria-label', 'Previous images'); n.setAttribute('aria-label', 'Next images');
@@ -253,6 +269,11 @@
       var b = el('button', 'gs-slide'), im = photo(src, name + ' photo ' + (k + 1));
       b.type = 'button'; b.setAttribute('aria-label', 'View larger: ' + name + ' photo ' + (k + 1));
       im.loading = 'lazy';
+      /* quality frames take the shape of the first photo, so there are no empty bars around it */
+      im.addEventListener('load', function () {
+        if (k === 0 && cls === 'gs-q' && im.naturalWidth)
+          w.style.setProperty('--ar', im.naturalWidth + ' / ' + im.naturalHeight);
+      });
       im.addEventListener('error', function () {
         if (k >= required) b.remove(); else { b.classList.add('empty'); b.dataset.file = src; }
         upd();
@@ -286,12 +307,12 @@
       if (asSelect) {
         sel = el('select', 'gx-sel'); sel.setAttribute('aria-label', 'Select ' + label);
         items.forEach(function (it, k) { var o = el('option', null, it.name); o.value = k; sel.appendChild(o); });
-        sel.onchange = function () { show(+sel.value); };
+        sel.onchange = function () { show(+sel.value); fitTitles(); };
         box.appendChild(sel);
       } else {
         var chips = el('div', 'gx-chips');
         items.forEach(function (it, k) {
-          var b = el('button', 'pchip', it.name); b.type = 'button'; b.onclick = function () { show(k); };
+          var b = el('button', 'pchip', it.name); b.type = 'button'; b.onclick = function () { show(k); fitTitles(); };
           btns.push(b); chips.appendChild(b);
         });
         box.appendChild(chips);
@@ -312,9 +333,9 @@
     };
   }), 'machine', true);
   $('#machine-view').appendChild(machineBox);
-  function selectMachine(i) { S.machine = i; machineBox.select(i); }
-   /* [name, image (extra photos are <name>-2.jpg and <name>-3.jpg)] */
-    /* quality page: all items of the chosen group, name + photos */
+  function selectMachine(i) { S.machine = i; machineBox.select(i); fitTitles(); }
+
+  /* quality page: all items of the chosen group, name + photos */
   var qualityGroup = 'machines';
   ['machines', 'equipment'].forEach(function (g) {
     var list = el('div', 'qlist');
@@ -329,27 +350,39 @@
   function showQuality(g) {
     qualityGroup = g; S.q = g;
     ['machines', 'equipment'].forEach(function (k) { $('#q-' + k).classList.toggle('hide', k !== g); });
+    fitTitles();
   }
   showQuality('machines');
+
   /* ================= MENUS (desktop dropdowns + phone sidebar) ================= */
+  /* on() says whether an item is the current choice, so it stays marked when the menu is reopened */
   var MENU = {
-    products: [{ label: 'All products', run: function () { showCat('all'); go('products'); } }].concat(PRODUCTS.map(function (c) {
-      return { label: c.title, run: function () { showCat(c.id); go('products'); } };
-    })),
+    products: PRODUCTS.map(function (c) {
+      return { label: c.title, on: function () { return S.cat === c.id; }, run: function () { showCat(c.id); go('products'); } };
+    }),
     machines: MACHINES.map(function (m, i) {
-      return { label: m[1], run: function () { selectMachine(i); jump('machines', '#machine-view'); } };
+      return { label: m[1], on: function () { return S.machine === i; }, run: function () { selectMachine(i); jump('machines', '#machine-view'); } };
     }),
     quality: [['Machines', 'machines'], ['Equipment', 'equipment']].map(function (q) {
-      return { label: q[0], run: function () { showQuality(q[1]); go('quality'); } };
+      return { label: q[0], on: function () { return S.q === q[1]; }, run: function () { showQuality(q[1]); go('quality'); } };
     })
   };
 
-  var nav = $('nav'), dd = {}, ddTimer = null;
+  function refreshMenus() {
+    Object.keys(MENU).forEach(function (k) {
+      MENU[k].forEach(function (m) {
+        (m.els || []).forEach(function (e) { e.classList.toggle('active', !!m.on()); });
+      });
+    });
+  }
+
+  var nav = $('nav'), dd = {}, ddTimer = null, ddLock = false;
   function closeMenus() {
     clearTimeout(ddTimer);
     Object.keys(dd).forEach(function (k) { dd[k].panel.classList.remove('open'); dd[k].a.setAttribute('aria-expanded', 'false'); });
   }
   function openMenu(name) {
+    if (ddLock) return;
     clearTimeout(ddTimer); closeMenus();
     var d = dd[name], nr = nav.getBoundingClientRect(), lr = d.a.getBoundingClientRect();
     d.panel.classList.add('open'); d.a.setAttribute('aria-expanded', 'true');
@@ -365,7 +398,12 @@
     dd[name] = { a: a, panel: panel };
     MENU[name].forEach(function (m) {
       var l = el('a', null, m.label); l.href = '#'; l.setAttribute('role', 'menuitem');
-      l.onclick = function (e) { e.preventDefault(); l.blur(); closeMenus(); m.run(); };
+      (m.els = m.els || []).push(l);
+      l.onclick = function (e) {
+        e.preventDefault(); l.blur(); closeMenus();
+        ddLock = true; setTimeout(function () { ddLock = false; }, 700);
+        m.run();
+      };
       panel.appendChild(l);
     });
     var li = a.parentNode;
@@ -393,7 +431,13 @@
     x.type = 'button'; x.setAttribute('aria-label', 'Close menu');
     head.appendChild(el('span', 'side-title', 'Menu')); head.appendChild(x); side.appendChild(head);
 
-    function open() { side.classList.add('open'); scrim.classList.add('open'); document.body.classList.add('noscroll'); burger.setAttribute('aria-expanded', 'true'); }
+    function open() {
+      side.classList.add('open'); scrim.classList.add('open'); document.body.classList.add('noscroll'); burger.setAttribute('aria-expanded', 'true');
+      /* open the group of the page you are on */
+      $$('.side-g', side).forEach(function (g) {
+        if (g.dataset.page === S.page) { g.classList.add('open'); $('.side-t', g).setAttribute('aria-expanded', 'true'); }
+      });
+    }
     function close() {
       side.classList.remove('open'); scrim.classList.remove('open'); document.body.classList.remove('noscroll'); burger.setAttribute('aria-expanded', 'false');
       /* reset for next time: collapse every group, scroll to top, drop focus */
@@ -402,17 +446,22 @@
       if (side.contains(document.activeElement)) document.activeElement.blur();
     }
     function link(t, fn) { var b = el('button', 'side-l', t); b.type = 'button'; b.onclick = function () { b.blur(); close(); fn(); }; return b; }
-    function group(t, items) {
+    function group(t, items, page) {
       var g = el('div', 'side-g'), b = el('button', 'side-l side-t', t), sub = el('div', 'side-sub');
+      g.dataset.page = page;
       b.type = 'button'; b.setAttribute('aria-expanded', 'false');
       b.onclick = function () { b.setAttribute('aria-expanded', g.classList.toggle('open')); };
-      items.forEach(function (m) { sub.appendChild(link(m.label, m.run)); });
+      items.forEach(function (m) {
+        var b2 = link(m.label, m.run);
+        (m.els = m.els || []).push(b2);
+        sub.appendChild(b2);
+      });
       g.appendChild(b); g.appendChild(sub); return g;
     }
     side.appendChild(link('Home', function () { go('home'); }));
-    side.appendChild(group('Products', MENU.products));
-    side.appendChild(group('Machines / Infrastructure', MENU.machines));
-    side.appendChild(group('Quality / Inspection', MENU.quality));
+    side.appendChild(group('Products', MENU.products, 'products'));
+    side.appendChild(group('Machines / Infrastructure', MENU.machines, 'machines'));
+    side.appendChild(group('Quality / Inspection', MENU.quality, 'quality'));
     side.appendChild(link('Organisation', function () { go('organisation'); }));
     side.appendChild(link('Customers', function () { go('customers'); }));
     side.appendChild(link('Contact', function () { $('#contact').scrollIntoView({ behavior: 'smooth' }); }));
@@ -421,6 +470,7 @@
     document.addEventListener('keydown', function (e) { if (e.key === 'Escape') close(); });
     window.addEventListener('resize', function () { if (!mobile.matches) close(); });
   })();
+  refreshMenus();
 
   /* phone: nav hides on scroll down, returns on scroll up */
   (function () {
@@ -597,6 +647,7 @@
         .catch(function () { m.textContent = 'Could not send. Please email us at sasthaenggservices@yahoo.co.in or call +91 9840779640.'; });
     });
   })();
+
   /* restore state on Back / Forward / reload */
   function apply(s) {
     s = s || { page: 'home', about: false, cat: 'all', machine: 0, q: 'machines' };
