@@ -271,8 +271,10 @@
       im.loading = 'lazy';
       /* quality frames take the shape of the first photo, so there are no empty bars around it */
       im.addEventListener('load', function () {
-        if (k === 0 && cls === 'gs-q' && im.naturalWidth)
-          w.style.setProperty('--ar', im.naturalWidth + ' / ' + im.naturalHeight);
+        if (k === 0 && cls === 'gs-q' && im.naturalWidth) {
+          var r = im.naturalWidth / im.naturalHeight;          /* guard against extreme shapes */
+          w.style.setProperty('--ar', Math.min(1.8, Math.max(0.8, r)).toFixed(4));
+        }
       });
       im.addEventListener('error', function () {
         if (k >= required) b.remove(); else { b.classList.add('empty'); b.dataset.file = src; }
@@ -334,6 +336,14 @@
   }), 'machine', true);
   $('#machine-view').appendChild(machineBox);
   function selectMachine(i) { S.machine = i; machineBox.select(i); fitTitles(); }
+
+  /* "List of machines" table on the View Machines page: every machine with its quantity */
+  (function () {
+    var tb = $('#machine-table');
+    MACHINES.forEach(function (m) {
+      var tr = el('tr'); tr.appendChild(el('td', null, m[2])); tr.appendChild(el('td', null, m[5])); tb.appendChild(tr);
+    });
+  })();
 
   /* quality page: all items of the chosen group, name + photos */
   var qualityGroup = 'machines';
