@@ -62,9 +62,9 @@
     { name: 'Mitsuba India (P) Ltd., Chennai and Pune plants', short: 'Mitsuba India', logo: 'logo-mitsuba', keep: true, parts: 'Wiper parts' },
     { name: 'Auto Ignition Limited, Satara plant', short: 'Auto Ignition', logo: 'logo-auto-ignition', parts: 'Wiper parts' },
     { name: 'Prabha Engineering, Pune plant', short: 'Prabha Engineering', logo: 'logo-prabha', parts: 'Wiper parts' },
+    { name: 'Simpson', short: 'Simpson', logo: 'logo-simpson', parts: 'Power weeder', optional: true },
     { name: 'Motion Industries (USA)', short: 'Motion Industries', logo: 'logo-motion', parts: 'Export' },
-    { name: 'APA Engineering Pvt Ltd.', short: 'APA Engineering', logo: 'logo-apa', parts: 'Export' },
-    { name: 'Simpson', short: 'Simpson', logo: 'logo-simpson', parts: null, optional: true }   /* logo only, no table row */
+    { name: 'APA Engineering Pvt Ltd.', short: 'APA Engineering', logo: 'logo-apa', parts: 'Export' }
   ];
 
   /* ================= HELPERS ================= */

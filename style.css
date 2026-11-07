@@ -201,6 +201,7 @@ td:first-child{font-weight:600}
 #capability .sec-head{margin-bottom:12px}
 #capability .sec-head+.shop-title{margin-top:0}
 .shop-title+.tbl{margin-top:18px}
+.shop-title.nobar{border-bottom:0;padding-bottom:0}   /* no line under "Shop floor" */
 body[data-page="customers"] .cx{display:none}   /* no sliding strip on the Customers page */
 tr:nth-child(even) td{background:var(--bg)}
 
@@ -291,7 +292,7 @@ body.noscroll{overflow:hidden}
   .mtop a{font-weight:600;font-size:.8rem;letter-spacing:.02em;text-transform:uppercase;text-decoration:none;color:var(--acc);padding:0 12px;line-height:1.2;border-left:1px solid #7c8890}
   .mtop a:first-child{border-left:0}
   .topbar,nav ul,.ddm{display:none!important}
-  nav{transition:transform .3s ease}
+  nav{transition:transform .3s ease;border-bottom:0}
   nav.nav-hidden{transform:translateY(-100%)}
   nav .wrap{gap:6px 8px;padding:8px 12px;flex-wrap:nowrap}
   .logo{order:1;margin-left:0;flex:1 0 auto;white-space:nowrap;font-size:clamp(.78rem,4.4vw,1.05rem);letter-spacing:.02em;display:flex;align-items:center}
@@ -347,7 +348,7 @@ body.noscroll{overflow:hidden}
   .abt:not(.open) .ax-more{display:none}
   .rm{display:inline-block}
 
-  .vision{padding-bottom:40px;border-top:3px solid var(--lite)}   /* line above Our vision */
+  .vision{padding-bottom:40px;background:var(--dark2)}   /* same blue as the hero behind the buttons */
   .vision ol{gap:0 18px;margin-top:22px}
   .vision li{gap:10px;padding:14px 0;font-size:.85rem;line-height:1.4}
   .vision li::before{font-size:1.2rem}
@@ -389,8 +390,10 @@ body.noscroll{overflow:hidden}
 
   /* customers: logos three per row, table that fits */
   .logos{gap:10px;margin-bottom:22px}
-  .logos .ph{width:calc((100% - 20px)/3)}
-  .logos .ph img{padding:8px}
+  /* each logo box grows to the shape of its logo, so the whole logo always shows */
+  .logos .ph{width:calc((100% - 20px)/3);aspect-ratio:auto;min-height:64px}
+  .logos .ph img{position:static;inset:auto;display:block;width:100%;height:auto;padding:8px}
+  .logos .ph:has(img)::after{display:none}
   .logos .ph::after{font-size:.55rem;padding:4px;line-height:1.3}
   table{min-width:0;table-layout:fixed}
   th{font-size:.72rem;letter-spacing:.04em;padding:8px 6px;width:50%}
