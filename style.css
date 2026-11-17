@@ -134,7 +134,7 @@ nav ul a.current{color:var(--acc);border-bottom-color:var(--acc)}
 .pgrid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:18px}
 /* a lone last card sits in the middle */
 .pgrid .pcard:last-child:nth-child(odd){grid-column:1/-1;justify-self:center;width:calc((100% - 18px)/2)}
-#products .wrap{max-width:1000px}   /* smaller product photos: raise to 1180px to enlarge */
+#products .wrap{max-width:1180px}   /* smaller product photos: raise to 1180px to enlarge */
 .pcat-note{margin-top:14px;max-width:760px;color:var(--mut);font-size:1rem}
 
 /* ---------- machines: gallery slider ---------- */
