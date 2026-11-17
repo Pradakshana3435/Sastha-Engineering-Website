@@ -11,9 +11,11 @@
     showSelectors: false,
     heroSlides: ['images/hero-2.jpg'],      /* added after images/hero.jpg in the HTML */
     stripDelay: 5500,                       /* customers strip, ms per logo */
-    imageRatio: '4 / 3'                     /* ONE shape for every product, machine and inspection photo (width / height) */
+    imageRatio: '4 / 3',
+    qualityRatio: '3 / 4'                        /* ONE shape for every product, machine and inspection photo (width / height) */
   };
   document.documentElement.style.setProperty('--img-ratio', CONFIG.imageRatio);
+  document.documentElement.style.setProperty('--q-ratio', CONFIG.qualityRatio);
 
   /* ================= DATA ================= */
   var PRODUCTS = [
@@ -21,7 +23,9 @@
       ['Bonnet Lock', 'bonnet-assembly'], ['Drive Roller', 'product-drive-roller'],
       ['Pipe and Pin', 'product-pipe-and-pin'], ['Banjos and Fittings', 'product-banjos-and-fittings']] },
     { id: 'automotive', title: 'Automotive', items: [
-      ['Pulley Tensioner', 'pulley-assembly'], ['Drain Plug', 'product-drain-plug']] }
+      ['Pulley Tensioner', 'pulley-assembly'], ['Drain Plug', 'product-drain-plug'],
+      ['Wiper Shaft', 'product-wiper-shaft']],
+      note: 'Manufacturers of four-wheeler windshield wiper shafts, producing almost 4 lakh pieces per month.' }
   ];
 
   /* [image slug, menu label, page title, description, capacity, quantity, optional 'fit']
@@ -32,10 +36,10 @@
     ['vertical-machining-centre', 'Vertical machining centre', 'Vertical machining centre (AMS MCV 400)', 'Computer-controlled milling, drilling and boring of complex part features in a single setup.', '600 x 450 x 500 mm', '2 Nos.'],
     ['centreless-grinding', 'Centreless grinding', 'Centreless grinding (Bhagwan and Sons)', 'Grinds cylindrical parts to an exact diameter and a fine surface finish without holding them between centres.', '100 mm', '5 Nos.'],
     ['capstan-lathe', 'Capstan lathe', 'Capstan lathe', 'Turret-based lathe for repeat production of turned parts through a fixed sequence of tooling operations.', '25 and 32 (holding)', '5 Nos.'],
-    ['auto-lathe', 'Auto lathe Traub', 'Auto lathe (PMT) Traub', 'Automatic lathe for fast, consistent production of small turned components in large batches.', 'A32', '8 Nos.', 'fit'],
-    ['thread-rolling', 'Thread rolling', 'Thread rolling (BSA)', 'Forms strong, accurate external threads by cold rolling rather than cutting.', '2 inch', '5 Nos.'],
     ['milling-machine', 'Milling machine', 'Milling machine (Pioneer)', 'Cuts flats, slots and profiles on components using rotating cutters.', 'No. 2', '2 Nos.'],
-    ['drilling-and-tapping', 'Drilling and tapping', 'Drilling and tapping', 'Drills holes and cuts internal threads in components.', '1 inch', '6 Nos.']
+    ['drilling-and-tapping', 'Drilling and tapping', 'Drilling and tapping', 'Drills holes and cuts internal threads in components.', '1 inch', '6 Nos.', 'fit'],
+    ['thread-rolling', 'Thread rolling', 'Thread rolling (BSA)', 'Forms strong, accurate external threads by cold rolling rather than cutting.', '2 inch', '5 Nos.', 'fit'],
+    ['auto-lathe', 'Auto lathe Traub', 'Auto lathe (PMT) Traub', 'Automatic lathe for fast, consistent production of small turned components in large batches.', 'A32', '8 Nos.', 'fit']
   ];
 
   /* [name, image (extra photos are <name>-2.jpg and <name>-3.jpg), description] */
@@ -163,7 +167,7 @@
     if (a.dataset.go === 'products') showCat('all');
     go(a.dataset.go);
   });
-  go('home', { scroll: false, nonpush: true });
+  go('home', { scroll: false, nopush: true });
 
   /* ================= IMAGE / VIDEO VIEWER ================= */
   var gv = el('div', 'gv');
@@ -241,7 +245,9 @@
         fig.appendChild(ph); fig.appendChild(el('figcaption', null, it[0]));
         grid.appendChild(fig);
       });
-      sec.appendChild(grid); list.appendChild(sec); catBoxes.push(sec);
+      sec.appendChild(grid);
+      if (c.note) sec.appendChild(el('p', 'pcat-note', c.note));
+      list.appendChild(sec); catBoxes.push(sec);
     });
   })();
   function showCat(name) {

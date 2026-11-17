@@ -128,10 +128,12 @@ nav ul a.current{color:var(--acc);border-bottom-color:var(--acc)}
 .pcat{margin-bottom:34px}
 .pcat.hide{display:none}
 .pcat-title{font-size:1.35rem;letter-spacing:.06em;padding-bottom:8px;margin-bottom:18px;border-bottom:2px solid var(--acc)}
-.pgrid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:24px}
 .pcard{display:flex;flex-direction:column;min-width:0}
 .pcard .ph{width:100%;border:2px solid var(--dark)}
 .pcard figcaption{flex:1;background:var(--dark);color:var(--on-dark);font-family:var(--head);font-weight:600;font-size:1rem;letter-spacing:.08em;text-transform:uppercase;padding:9px 12px}
+.pgrid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:18px}
+#products .wrap{max-width:1000px}   /* smaller product photos: raise to 1180px to enlarge */
+.pcat-note{margin-top:14px;max-width:760px;color:var(--mut);font-size:1rem}
 
 /* ---------- machines: gallery slider ---------- */
 .gx-sel{display:block;width:100%;max-width:560px;margin-bottom:20px;font-family:var(--head);font-weight:600;font-size:1.05rem;letter-spacing:.06em;text-transform:uppercase;color:var(--ink);background:var(--panel);border:2px solid var(--dark);padding:11px 14px;cursor:pointer}
@@ -166,13 +168,11 @@ nav ul a.current{color:var(--acc);border-bottom-color:var(--acc)}
 .qblock.hide{display:none}
 .qh{font-size:clamp(1.6rem,3vw,2.2rem)}
 #machines .wrap,#quality .wrap{max-width:1400px}   /* wider pages = bigger photos on a laptop */
-.qlist{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:30px 24px;margin-top:18px}
-/* a lone last item (the 7th equipment) sits in the middle */
-.qlist .qitem:last-child:nth-child(odd){grid-column:1/-1;justify-self:center;width:calc((100% - 24px)/2)}
-.qitem{min-width:0}
-.qitem .gx-name{margin-bottom:12px}
+.qlist{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:30px 24px;margin-top:18px}
+/* a lone last item (the 7th equipment) sits in the middle column */
+.qlist .qitem:last-child:nth-child(3n+1){grid-column:2}
 /* one photo per frame, same shape as every other photo */
-.gs-q .gs-slide{flex-basis:100%;display:block}
+.gs-q .gs-slide{flex-basis:100%;display:block;aspect-ratio:var(--q-ratio,3/4)}
 .gs-q .gs-slide.empty{display:flex}
 
 /* ---------- organisation ---------- */
@@ -277,6 +277,9 @@ body.noscroll{overflow:hidden}
 @media (max-width:1100px){
   .gs-slide{flex-basis:calc((100% - 14px)/2)}
   .cx{--n:3}
+  .qlist{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .qlist .qitem:last-child:nth-child(3n+1){grid-column:auto}
+  .qlist .qitem:last-child:nth-child(odd){grid-column:1/-1;justify-self:center;width:calc((100% - 24px)/2)}
 }
 
 /* ================= phone ================= */
