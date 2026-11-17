@@ -131,7 +131,9 @@ nav ul a.current{color:var(--acc);border-bottom-color:var(--acc)}
 .pcard{display:flex;flex-direction:column;min-width:0}
 .pcard .ph{width:100%;border:2px solid var(--dark)}
 .pcard figcaption{flex:1;background:var(--dark);color:var(--on-dark);font-family:var(--head);font-weight:600;font-size:1rem;letter-spacing:.08em;text-transform:uppercase;padding:9px 12px}
-.pgrid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:18px}
+.pgrid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:18px}
+/* a lone last card sits in the middle */
+.pgrid .pcard:last-child:nth-child(odd){grid-column:1/-1;justify-self:center;width:calc((100% - 18px)/2)}
 #products .wrap{max-width:1000px}   /* smaller product photos: raise to 1180px to enlarge */
 .pcat-note{margin-top:14px;max-width:760px;color:var(--mut);font-size:1rem}
 
@@ -174,6 +176,7 @@ nav ul a.current{color:var(--acc);border-bottom-color:var(--acc)}
 /* one photo per frame, same shape as every other photo */
 .gs-q .gs-slide{flex-basis:100%;display:block;aspect-ratio:var(--q-ratio,3/4)}
 .gs-q .gs-slide.empty{display:flex}
+.qlist{align-items:start}
 
 /* ---------- organisation ---------- */
 .org{display:grid;grid-template-columns:1fr 1fr;gap:56px;align-items:start}
@@ -359,6 +362,7 @@ body.noscroll{overflow:hidden}
   .pchip,.gx-chips .pchip{font-size:.74rem;padding:8px 10px;letter-spacing:.05em}
   .pcat-title{font-size:1.1rem;margin-bottom:14px}
   .pgrid{grid-template-columns:minmax(0,1fr);gap:16px}
+  .pgrid .pcard:last-child:nth-child(odd){width:auto;justify-self:stretch}
   .pcard figcaption{font-size:.8rem;letter-spacing:.05em;padding:7px 9px}
   .gx-sel{font-size:.85rem;max-width:none}
   .gx-name{font-size:.9rem}
